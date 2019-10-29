@@ -1,5 +1,6 @@
 import database_work
 import level
+import random
 
 
 class User:
@@ -27,13 +28,23 @@ class User:
         user_passed_levels = database_user[4]
         return User(user_id, user_name, user_blood, user_level, user_passed_levels, level.get_level_object(user_level))
 
-    def increase_user_level(self):
-        levels_count = len(level.levels_list)
-        if self.level < levels_count - 1:
-            self.level = self.level + 1
-            self.blood = self.blood + 1
-            self.update_user()
-            self.level_object = level.levels_list[self.level]
-        else:
-            self.level = level.levels_list[levels_count]
+    def set_random_level(self):
+        if str(self.level) in self.passed_levels:
+            self.level = random.randint(1, len(level.levels_dict) - 1)
+            if self.level <= len(level.levels_dict) - 1:
+                self.set_random_level()
 
+    def is_finished(self):
+        if len(self.passed_levels) < 11:
+            return False
+        return True
+
+    def increase_user_level(self):
+        if not self.is_finished():
+            self.blood = self.blood + 1
+            self.passed_levels = self.passed_levels + str(self.level)
+            self.update_user()
+            self.set_random_level()
+            self.level_object = level.levels_dict.get(self.level)
+        else:
+            self.level_object = level.levels_dict.get(11)
