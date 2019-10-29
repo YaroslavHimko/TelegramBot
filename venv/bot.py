@@ -29,35 +29,40 @@ def catching_excessive_text(message):
 
 def process_incorrect_content(message, user):
     bot.send_message(message.from_user.id, greetings.incorrect_content)
-    bot.register_next_step_handler_by_chat_id(message.chat.id, check_answer, user)
-
-
-@bot.message_handler(content_types=['text'])
-def check_answer(message, user):
-    if message.content_type == 'text':
-        user_message = message.text.lower()
-        if user_message == '/start' or user_message == '/reset':
-                command_start(message)
-        if not user.is_finished():
-            if user_message == user.level_object.answer:
-                bot.send_message(message.chat.id, 'Молодец\n' + blood_work.show_bats(user.blood))
-                user.increase_user_level()
-                print("user {} passed to a level {}".format(user.id, user.level))
-                process_level(message, user)
-            else:
-                bot.send_message(message.chat.id, level.get_random_wrong_answer())
-                process_level(message, user)
-        else:
-            user.increase_user_level()
-            process_level(message, user)
-    else:
-        process_incorrect_content(message, user)
+    bot.register_next_step_handler_by_chat_id(message.chat.id, check_content, user)
 
 
 def process_level(message, user):
     bot.send_sticker(message.chat.id, user.level_object.sticker)
     sent = bot.send_message(message.chat.id, user.level_object.question)
-    bot.register_next_step_handler(sent, check_answer, user)
+    bot.register_next_step_handler(sent, check_content, user)
+
+
+def check_answer(message, user):
+    user_message = message.text.lower()
+    if user_message == user.level_object.answer:
+        bot.send_message(message.chat.id, greetings.correct_answer + blood_work.show_bats(user.blood))
+        user.increase_user_level()
+        print("user {} passed to a level {}".format(user.id, user.level))
+        process_level(message, user)
+    else:
+        bot.send_message(message.chat.id, level.get_random_wrong_answer())
+        process_level(message, user)
+
+
+@bot.message_handler(content_types=['text'])
+def check_content(message, user):
+    if message.content_type == 'text':
+        if message.text == '/start' or message.text == '/reset':
+            command_start(message)
+        if not user.is_finished():
+            check_answer(message, user)
+        else:
+            #doesn't show bats
+            user.increase_user_level()
+            process_level(message, user)
+    else:
+        process_incorrect_content(message, user)
 
 
 bot.polling()
