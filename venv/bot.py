@@ -60,6 +60,7 @@ def check_content(message, user):
         if message.text == '/start' or message.text == '/reset':
             command_start(message)
         if not user.is_finished():
+            print('calling check answer')
             check_answer(message, user)
         else:
             user_completed_level(message, user)

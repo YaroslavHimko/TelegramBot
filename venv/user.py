@@ -35,6 +35,7 @@ class User:
                 self.set_random_level()
 
     def is_finished(self):
+        #last level doesn't validate
         if len(self.passed_levels) < 11:
             return False
         return True
