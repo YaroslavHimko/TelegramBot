@@ -86,10 +86,10 @@ def update_user(id, name, blood, level, passed_levels):
     conn = create_connection()
     cur = conn.cursor()
     command = "update users set name = '{}', blood = {}, level = {}, passed = '{}' where id = {}".format(name,
-                                                                                                             blood,
-                                                                                                             level,
-                                                                                                             passed_levels,
-                                                                                                             id)
+                                                                                                         blood,
+                                                                                                         level,
+                                                                                                         passed_levels,
+                                                                                                         id)
     cur.execute(command)
     conn.commit()
     conn.close()
@@ -111,6 +111,15 @@ def update_passed(passed, id):
     conn = create_connection()
     cur = conn.cursor()
     command = "update users set passed = {} where id = {}".format(passed, id)
+    cur.execute(command)
+    conn.commit()
+    conn.close()
+
+
+def update_user_blood(blood, id):
+    conn = create_connection()
+    cur = conn.cursor()
+    command = "update users set blood = {} where id = {}".format(blood, id)
     cur.execute(command)
     conn.commit()
     conn.close()

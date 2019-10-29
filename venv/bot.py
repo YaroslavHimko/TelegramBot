@@ -4,6 +4,7 @@ import database_work
 import level
 import user
 import greetings
+import blood_work
 
 bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
 
@@ -16,7 +17,7 @@ def hello_message(message):
 @bot.message_handler(commands=['start'])
 def command_start(message):
     hello_message(message)
-    current_user = user.User(message.from_user.id, 'default', 0, 0, '0', level.levels_list[0])
+    current_user = user.User(message.from_user.id, 'default', 1, 0, '0', level.levels_list[0])
     process_level(message, current_user)
 
 
@@ -31,10 +32,10 @@ def check_answer(message, user):
     if message.content_type == 'text':
         user_message = message.text.lower()
         if user_message == user.level_object.answer and user.level < level.get_levels_length():
-            bot.send_message(message.chat.id, 'OK')
+            bot.send_message(message.chat.id, 'Молодец\n' + blood_work.show_bats(user.blood))
             if user.level < level.get_levels_length():
                 user.increase_user_level()
-                print(user.level)
+                print("user {} passed to a level {}".format(user.id, user.level + 1))
                 process_level(message, user)
             else:
                 process_level(message, user)
@@ -55,7 +56,6 @@ def check_answer(message, user):
 def process_level(message, user):
     bot.send_sticker(message.chat.id, user.level_object.sticker)
     sent = bot.send_message(message.chat.id, user.level_object.question)
-    print(user.level)
     bot.register_next_step_handler(sent, check_answer, user)
 
 
