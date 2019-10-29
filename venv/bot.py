@@ -38,13 +38,17 @@ def process_level(message, user):
     bot.register_next_step_handler(sent, check_content, user)
 
 
+def user_completed_level(message, user):
+    bot.send_message(message.chat.id, greetings.correct_answer + blood_work.show_bats(user.blood))
+    user.increase_user_level()
+    process_level(message, user)
+
+
 def check_answer(message, user):
     user_message = message.text.lower()
     if user_message == user.level_object.answer:
-        bot.send_message(message.chat.id, greetings.correct_answer + blood_work.show_bats(user.blood))
-        user.increase_user_level()
+        user_completed_level(message, user)
         print("user {} passed to a level {}".format(user.id, user.level))
-        process_level(message, user)
     else:
         bot.send_message(message.chat.id, level.get_random_wrong_answer())
         process_level(message, user)
@@ -58,9 +62,7 @@ def check_content(message, user):
         if not user.is_finished():
             check_answer(message, user)
         else:
-            #doesn't show bats
-            user.increase_user_level()
-            process_level(message, user)
+            user_completed_level(message, user)
     else:
         process_incorrect_content(message, user)
 
