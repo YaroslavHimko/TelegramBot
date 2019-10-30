@@ -55,7 +55,7 @@ def check_answer(message, user):
 
 
 def process_level(message, user):
-    bot.send_sticker(message.chat.id, user.level_object.sticker)
+    bot.send_photo(message.chat.id, photo=open('resources/{}'.format(user.level_object.photo), 'rb'))
     sent = bot.send_message(message.chat.id, user.level_object.question)
     bot.register_next_step_handler(sent, check_answer, user)
 

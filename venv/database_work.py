@@ -6,7 +6,7 @@ def create_connection():
     try:
         conn = sqlite3.connect('testdatabase', check_same_thread=False)
     except Error as e:
-        print(e)
+        pass
 
     return conn
 
@@ -111,15 +111,6 @@ def update_passed(passed, id):
     conn = create_connection()
     cur = conn.cursor()
     command = "update users set passed = {} where id = {}".format(passed, id)
-    cur.execute(command)
-    conn.commit()
-    conn.close()
-
-
-def update_user_blood(blood, id):
-    conn = create_connection()
-    cur = conn.cursor()
-    command = "update users set blood = {} where id = {}".format(blood, id)
     cur.execute(command)
     conn.commit()
     conn.close()
