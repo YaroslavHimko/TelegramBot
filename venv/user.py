@@ -4,19 +4,20 @@ import random
 
 
 class User:
-    def __init__(self, id, name, blood, level, passed_levels, level_object):
-        self.id = id
+    def __init__(self, user_id, name, blood, level, passed_levels, level_object):
+        self.user_id = user_id
         self.name = name
         self.blood = blood
         self.level = level
         self.passed_levels = passed_levels
         self.level_object = level_object
+        database_work.update_user(self.user_id, self.name, self.blood, self.level, self.passed_levels)
 
     def insert_user(self):
-        database_work.insert_user(self.id, self.name, self.blood, self.level, self.passed_levels)
+        database_work.insert_user(self.user_id, self.name, self.blood, self.level, self.passed_levels)
 
     def update_user(self):
-        database_work.update_user(self.id, self.name, self.blood, self.level, self.passed_levels)
+        database_work.update_user(self.user_id, self.name, self.blood, self.level, self.passed_levels)
 
     @staticmethod
     def get_user(user_id):
