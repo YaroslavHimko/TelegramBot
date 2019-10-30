@@ -16,6 +16,7 @@ def hello_message(message):
 
 @bot.message_handler(commands=['start'])
 def command_start(message):
+    database_work.create_table_users()
     hello_message(message)
     current_user = user.User(message.from_user.id, 'default', 1, 1, '0', level.get_level_object(1))
     process_level(message, current_user)
