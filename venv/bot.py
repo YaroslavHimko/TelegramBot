@@ -7,7 +7,6 @@ import blood_work
 import os
 
 token = os.environ.get('TelegramToken')
-print(token)
 bot = telebot.TeleBot(token)
 database_work.create_table_users()
 
