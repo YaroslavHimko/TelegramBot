@@ -8,7 +8,7 @@ import os
 
 token = os.environ.get('TelegramToken')
 
-bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
+bot = telebot.TeleBot(token)
 database_work.create_table_users()
 
 
