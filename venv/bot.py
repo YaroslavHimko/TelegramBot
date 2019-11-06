@@ -4,6 +4,9 @@ import level
 import user
 import greetings
 import blood_work
+import os
+
+token = os.environ.get('TelegramToken')
 
 bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
 database_work.create_table_users()
