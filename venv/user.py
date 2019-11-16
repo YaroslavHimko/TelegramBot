@@ -11,6 +11,14 @@ class User:
         self.level = level
         self.passed_levels = passed_levels
 
+    def show_bats(self):
+        bat = '🦇'
+        result = ''
+        i = 0
+        while i < self.blood:
+            i = i + 1
+            result += bat
+        return result
 
     def is_finished(self):
         for i in range(len(self.passed_levels)):

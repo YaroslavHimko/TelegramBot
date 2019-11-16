@@ -2,8 +2,6 @@ import user
 import json
 import passed_levels
 import level
-import level_content
-
 
 def jsonDefault(OrderedDict):
     return OrderedDict.__dict__

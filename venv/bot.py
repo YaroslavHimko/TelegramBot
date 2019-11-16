@@ -2,19 +2,20 @@ import telebot
 import level
 import user
 import greetings
-import blood_work
 import os
 import json_worker
 import passed_levels
 import photos
-##token = os.environ.get('TelegramToken')
-bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
+
+token = os.environ.get('TelegramToken')
+bot = telebot.TeleBot(token)
 
 
 def hello_message(message):
     print('calling hello message')
     bot.send_message(message.chat.id, greetings.one)
     bot.send_message(message.chat.id, greetings.two)
+
 
 @bot.message_handler(commands=['start'])
 def command_start(message):
@@ -52,7 +53,7 @@ def process_level(message, curr_user):
 
 def user_completed_level(message, curr_user):
     print('calling user completed level')
-    bot.send_message(message.chat.id, greetings.correct_answer + blood_work.show_bats(curr_user.blood))
+    bot.send_message(message.chat.id, greetings.correct_answer + curr_user.show_bats())
     curr_user.get_new_level()
     process_level(message, curr_user)
 
