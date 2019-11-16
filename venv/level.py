@@ -6,9 +6,10 @@ import greetings
 
 
 class Level:
-    def __init__(self, name, content):
-        self.name = name
-        self.content = content
+    def __init__(self, question, answer, photo):
+        self.question = question
+        self.answer = answer
+        self.photo = photo
 
 
 def get_random_wrong_answer():

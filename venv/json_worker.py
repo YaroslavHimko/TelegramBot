@@ -21,22 +21,19 @@ def user_json_reader(user_id):
                          name=user_json.get('name'),
                          blood=user_json.get('blood'),
                          level=user_json.get('level'),
-                         passed_levels=get_passed_levels_objects_dict(user_json.get('passed_levels')))
+                         passed_levels=get_passed_levels_objects_list(user_json.get('passed_levels')))
 
 
-def get_passed_levels_objects_dict(passed_levels_json):
-    passed_levels_dict = {}
-    for key, value in passed_levels_json.items():
-        passed_levels_dict[key] = passed_levels.Passed_levels(is_passed=value.get('is_passed'),
-                                                              level=get_level(value.get('level')))
-    return passed_levels_dict
+def get_passed_levels_objects_list(passed_levels_json):
+    passed_levels_list = []
+    for item in passed_levels_json:
+        passed_levels_list.append(passed_levels.Passed_levels(number=item.get('number'),
+                                                              is_passed=item.get('is_passed'),
+                                                              level=get_level(item.get('level'))))
+    return passed_levels_list
 
 
 def get_level(level_json):
-    return level.Level(name=level_json.get('name'), content=get_content(level_json.get('content')))
-
-
-def get_content(content_json):
-    return level_content.Content(question=content_json.get('question'),
-                                 answer=content_json.get('answer'),
-                                 photo=content_json.get('photo'))
+    return level.Level(question=level_json.get('question'),
+                                 answer=level_json.get('answer'),
+                                 photo=level_json.get('photo'))
