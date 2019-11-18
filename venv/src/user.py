@@ -45,7 +45,7 @@ class User:
 
 
 def create_user(user_id, user_name):
-    return User(user_id=user_id, name=user_name, blood=1, level=0, passed_levels=passed_levels.levels_list)
+    return User(user_id=user_id, name=user_name, blood=1, level=0, passed_levels=passed_levels.Passed_levels.create_new_list())
 
 
 def get_user(user_id, user_name):
