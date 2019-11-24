@@ -7,11 +7,10 @@ from src import json_worker
 from src import passed_levels
 from resources import photos
 
-token = os.environ.get('TelegramToken')
-bot = telebot.TeleBot(token)
+# token = os.environ.get('TelegramToken')
+# bot = telebot.TeleBot(token)
 
-#bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
-
+bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
 
 
 def hello_message(message):
@@ -71,22 +70,15 @@ def check_answer(message, curr_user):
 
 
 def check_content(message, curr_user):
-    print("Entered to check content")
     if message.content_type == 'text':
-        print("Reached text content condition")
-        if message.text == '/start' or message.text == '/reset':
-            print("Reached start or reset condition")
+        if message.text == '/start' or message.text == '/reset' or message.text == 'Старт':
             command_start(message)
         else:
-            print("User content is not a start or reset")
             if not curr_user.is_finished():
-                print("User didn't finish the quest")
                 check_answer(message, curr_user)
             else:
-                print("User completed level")
                 user_completed_level(message, curr_user)
     else:
-        print("User content is not a text")
         process_incorrect_content(message, curr_user)
 
 

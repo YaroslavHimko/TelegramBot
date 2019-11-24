@@ -36,6 +36,7 @@ class User:
         self.generate_next_level()
 
     def generate_next_level(self):
+
         for i in range(len(self.passed_levels)):
             if self.passed_levels[i].is_passed is True:
                 continue

@@ -1,5 +1,5 @@
 one = 'солнце'
-two = 'жаба'
+two = 'хамелеон'
 three = 'гроб'
 four = 'гофман'
 five = '170'
@@ -9,4 +9,4 @@ eight = '1215'
 nine = 'приматы'
 ten = 'витас'
 
-wrong_answers = ['no', 'NOO', 'NOOOO']
+wrong_answers = ['Подумай еще!']
