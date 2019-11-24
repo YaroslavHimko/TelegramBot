@@ -7,10 +7,10 @@ from src import json_worker
 from src import passed_levels
 from resources import photos
 
-# token = os.environ.get('TelegramToken')
-# bot = telebot.TeleBot(token)
+token = os.environ.get('TelegramToken')
+bot = telebot.TeleBot(token)
 
-bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
+#bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
 
 
 def hello_message(message):
