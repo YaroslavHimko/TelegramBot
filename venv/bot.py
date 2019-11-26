@@ -27,9 +27,7 @@ def command_start(message):
 
 @bot.message_handler(content_types=['text'])
 def catching_excessive_text(message):
-    print('calling catching excessive text')
     curr_user = user.get_user(message.from_user.id, message.chat.first_name)
-    check_content(message, curr_user)
 
 
 def process_incorrect_content(message, curr_user):
@@ -68,7 +66,7 @@ def check_answer(message, curr_user):
         bot.send_message(message.chat.id, level.get_random_wrong_answer())
         process_level(message, curr_user)
 
-
+@bot.message_handler(content_types=['text'])
 def check_content(message, curr_user):
     if message.content_type == 'text':
         if message.text == '/start' or message.text == '/reset' or message.text == 'Старт':

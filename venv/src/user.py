@@ -37,7 +37,6 @@ class User:
 
     def generate_random_level(self):
         random_level = random.choice(self.passed_levels)
-        print(random_level.number)
         if random_level.is_passed is True and self.is_finished() is False:
             self.generate_random_level()
         if random_level.is_passed is False and self.is_finished() is False:
