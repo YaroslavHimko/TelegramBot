@@ -25,6 +25,11 @@ def command_start(message):
     process_level(message, current_user)
 
 
+def command_restart(message, curr_user):
+    hello_message(message)
+    curr_user.reset_user()
+    process_level(message, curr_user)
+
 @bot.message_handler(content_types=['text'])
 def catching_excessive_text(message):
     curr_user = user.get_user(message.from_user.id, message.chat.first_name)
@@ -70,7 +75,8 @@ def check_answer(message, curr_user):
 def check_content(message, curr_user):
     if message.content_type == 'text':
         if message.text == '/start' or message.text == '/reset' or message.text == 'Старт':
-            command_start(message)
+            command_restart(message, curr_user)
+            return
         if curr_user.is_finished():
             bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.grats), 'rb'))
             bot.send_message(message.chat.id, greetings.grats)

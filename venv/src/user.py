@@ -12,6 +12,12 @@ class User:
         self.level = level
         self.passed_levels = passed_levels
 
+
+    def reset_user(self):
+        self.blood = 1
+        self.level = 0
+        self.passed_levels = passed_levels.Passed_levels.create_new_list()
+
     def show_bats(self):
         bat = '🦇'
         result = ''
