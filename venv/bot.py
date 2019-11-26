@@ -7,10 +7,10 @@ from src import json_worker
 from src import passed_levels
 from resources import photos
 
-token = os.environ.get('TelegramToken')
-bot = telebot.TeleBot(token)
+#token = os.environ.get('TelegramToken')
+#bot = telebot.TeleBot(token)
 
-#bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
+bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
 
 
 def hello_message(message):
@@ -73,6 +73,9 @@ def check_content(message, curr_user):
     if message.content_type == 'text':
         if message.text == '/start' or message.text == '/reset' or message.text == 'Старт':
             command_start(message)
+        if curr_user.is_finished():
+            bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.grats), 'rb'))
+            bot.send_message(message.chat.id, greetings.grats)
         else:
             if not curr_user.is_finished():
                 check_answer(message, curr_user)

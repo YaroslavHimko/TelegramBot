@@ -33,10 +33,18 @@ class User:
         self.passed_levels[self.level].is_passed = True
         self.blood = self.blood + 1
         json_worker.user_json_writer(self)
-        self.generate_next_level()
+        self.generate_random_level()
+
+    def generate_random_level(self):
+        random_level = random.choice(self.passed_levels)
+        print(random_level.number)
+        if random_level.is_passed is True and self.is_finished() is False:
+            self.generate_random_level()
+        if random_level.is_passed is False and self.is_finished() is False:
+            self.level = random_level.number
+            return self.passed_levels[random_level.number]
 
     def generate_next_level(self):
-
         for i in range(len(self.passed_levels)):
             if self.passed_levels[i].is_passed is True:
                 continue
