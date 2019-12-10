@@ -47,7 +47,8 @@ def process_level(message, curr_user):
         return
     curr_level = curr_user.level
     content = curr_user.passed_levels[curr_level].level
-    bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(content.photo), 'rb'))
+    if curr_user.level != 0:
+        bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(content.photo), 'rb'))
     sent = bot.send_message(message.chat.id, content.question)
     bot.register_next_step_handler(sent, check_content, curr_user)
 
