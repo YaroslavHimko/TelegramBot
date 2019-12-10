@@ -10,7 +10,7 @@ from resources import photos
 token = os.environ.get('TelegramToken')
 bot = telebot.TeleBot(token)
 
-#bot = telebot.TeleBot('916863111:AAGWw4dubDgRIszatOgV3MlQFJf-I88FTs4')
+#bot = telebot.TeleBot('1007513687:AAEF8E6M45ku6RpCyw_iW0NPVErVefYY3BE')
 
 
 def hello_message(message):
@@ -76,20 +76,16 @@ def check_content(message, curr_user):
     if message.content_type == 'text':
         if message.text == '/start' or message.text == '/reset' or message.text == 'Старт':
             command_restart(message, curr_user)
-            print('command start')
             return
         if curr_user.is_finished():
             bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.grats), 'rb'))
             bot.send_message(message.chat.id, greetings.grats)
         else:
             if not curr_user.is_finished():
-                print('check answer')
                 check_answer(message, curr_user)
             else:
-                print('complete level')
                 user_completed_level(message, curr_user)
     else:
-        print('incorrect content')
         process_incorrect_content(message, curr_user)
 
 
