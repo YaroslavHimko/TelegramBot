@@ -11,7 +11,7 @@ from resources import photos
 #bot = telebot.TeleBot(token)
 
 bot = telebot.TeleBot('1007513687:AAEF8E6M45ku6RpCyw_iW0NPVErVefYY3BE')
-winners_count = 0
+winners_dict = []
 
 
 def hello_message(message):
@@ -44,9 +44,16 @@ def process_incorrect_content(message, curr_user):
 
 def process_level(message, curr_user):
     if curr_user.is_finished():
-        print(message.chat.username)
-        bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.grats), 'rb'))
-        bot.send_message(message.chat.id, greetings.grats)
+        winners_dict.append(message.chat.username)
+        if (message.chat.username in winners_dict) and winners_dict.index(message.chat.username) < 1:
+            bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.grats), 'rb'))
+            print('won')
+            print(message.chat.username)
+        else:
+            bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.grats), 'rb'))
+            bot.send_message(message.chat.id, greetings.grats)
+            print('not won')
+            print(message.chat.username)
         return
     curr_level = curr_user.level
     content = curr_user.passed_levels[curr_level].level
