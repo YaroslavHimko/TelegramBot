@@ -44,6 +44,7 @@ def process_incorrect_content(message, curr_user):
 
 def process_level(message, curr_user):
     if curr_user.is_finished():
+        print(curr_user.first_name)
         bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.grats), 'rb'))
         bot.send_message(message.chat.id, greetings.grats)
         return
