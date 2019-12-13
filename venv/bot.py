@@ -11,6 +11,7 @@ token = os.environ.get('TelegramToken')
 bot = telebot.TeleBot(token)
 
 #bot = telebot.TeleBot('1007513687:AAEF8E6M45ku6RpCyw_iW0NPVErVefYY3BE')
+winners_count = 0
 
 
 def hello_message(message):
@@ -29,6 +30,7 @@ def command_restart(message, curr_user):
     hello_message(message)
     curr_user.reset_user()
     process_level(message, curr_user)
+
 
 def catching_excessive_text(message):
     curr_user = user.get_user(message.from_user.id, message.chat.first_name)
@@ -71,6 +73,7 @@ def check_answer(message, curr_user):
     else:
         bot.send_message(message.chat.id, level.get_random_wrong_answer())
         process_level(message, curr_user)
+
 
 def check_content(message, curr_user):
     if message.content_type == 'text':
