@@ -7,10 +7,10 @@ from src import json_worker
 from src import passed_levels
 from resources import photos
 
-#token = os.environ.get('TelegramToken')
-#bot = telebot.TeleBot(token)
+token = os.environ.get('TelegramToken')
+bot = telebot.TeleBot(token)
 
-bot = telebot.TeleBot('1007513687:AAEF8E6M45ku6RpCyw_iW0NPVErVefYY3BE')
+#bot = telebot.TeleBot('1007513687:AAEF8E6M45ku6RpCyw_iW0NPVErVefYY3BE')
 winners_dict = []
 
 
@@ -45,8 +45,8 @@ def process_incorrect_content(message, curr_user):
 def process_level(message, curr_user):
     if curr_user.is_finished():
         winners_dict.append(message.chat.username)
-        if (message.chat.username in winners_dict) and winners_dict.index(message.chat.username) < 1:
-            bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.grats), 'rb'))
+        if (message.chat.username in winners_dict) and winners_dict.index(message.chat.username) < 26:
+            bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.discount), 'rb'))
             print('won')
             print(message.chat.username)
         else:
