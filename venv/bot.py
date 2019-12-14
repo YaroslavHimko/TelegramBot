@@ -44,17 +44,17 @@ def process_incorrect_content(message, curr_user):
 
 def process_level(message, curr_user):
     if curr_user.is_finished():
-        #winners_dict.append(message.chat.username)
-        #if (message.chat.username in winners_dict) and winners_dict.index(message.chat.username) < 26:
-            #bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.discount), 'rb'))
-            #bot.send_message(message.chat.id, greetings.grats)
-            #print('won')
-            #print(message.chat.username)
-        #else:
-        bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.grats), 'rb'))
-        bot.send_message(message.chat.id, greetings.grats)
-        #print('not won')
-        print(message.chat.username)
+        winners_dict.append(message.chat.username)
+        if (message.chat.username in winners_dict) and winners_dict.index(message.chat.username) < 26:
+            bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.discount), 'rb'))
+            bot.send_message(message.chat.id, greetings.grats_won)
+            print('won')
+            print(message.chat.username)
+        else:
+            bot.send_photo(message.chat.id, photo=open('resources/photos/{}'.format(photos.grats), 'rb'))
+            bot.send_message(message.chat.id, greetings.grats)
+            print('not won')
+            print(message.chat.username)
         return
     curr_level = curr_user.level
     content = curr_user.passed_levels[curr_level].level
