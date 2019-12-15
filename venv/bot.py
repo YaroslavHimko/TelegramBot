@@ -7,10 +7,10 @@ from src import json_worker
 from src import passed_levels
 from resources import photos
 try:
-    token = os.environ.get('TelegramToken')
-    bot = telebot.TeleBot(token)
+    #token = os.environ.get('TelegramToken')
+    #bot = telebot.TeleBot(token)
 
-    #bot = telebot.TeleBot('1007513687:AAEF8E6M45ku6RpCyw_iW0NPVErVefYY3BE')
+    bot = telebot.TeleBot('1007513687:AAEF8E6M45ku6RpCyw_iW0NPVErVefYY3BE')
     winners_dict = []
 
 
@@ -24,6 +24,19 @@ try:
         hello_message(message)
         current_user = user.create_user(message.from_user.id, message.chat.first_name)
         process_level(message, current_user)
+
+    @bot.message_handler(commands=['stats'])
+    def command_stats(message):
+        completed = 0
+        all_users = 0
+        for filename in os.listdir('users'):
+            user_id = filename.split()[0]
+            user = json_worker.user_reader(user_id)
+            if user.is_finished():
+                completed += 1
+            all_users += 1
+        bot.send_message(message.from_user.id, 'Всего участников: {}'.format(all_users))
+        bot.send_message(message.from_user.id, 'Закончили квест: {}'.format(completed))
 
 
     def command_restart(message, curr_user):

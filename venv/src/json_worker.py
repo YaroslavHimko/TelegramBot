@@ -21,6 +21,14 @@ def user_json_reader(user_id):
                          level=user_json.get('level'),
                          passed_levels=get_passed_levels_objects_list(user_json.get('passed_levels')))
 
+def user_reader(user_id):
+    with open('users/{}'.format(user_id), 'r') as user_file:
+        user_json = json.load(user_file)
+        return user.User(user_id=user_json.get('user_id'),
+                         name=user_json.get('name'),
+                         blood=user_json.get('blood'),
+                         level=user_json.get('level'),
+                         passed_levels=get_passed_levels_objects_list(user_json.get('passed_levels')))
 
 def get_passed_levels_objects_list(passed_levels_json):
     passed_levels_list = []
