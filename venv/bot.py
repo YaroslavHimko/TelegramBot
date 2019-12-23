@@ -7,10 +7,9 @@ from src import json_worker
 from src import passed_levels
 from resources import photos
 try:
-    #token = os.environ.get('TelegramToken')
-    #bot = telebot.TeleBot(token)
+    token = os.environ.get('TelegramToken')
+    bot = telebot.TeleBot(token)
 
-    bot = telebot.TeleBot('1007513687:AAEF8E6M45ku6RpCyw_iW0NPVErVefYY3BE')
     winners_dict = []
 
 
